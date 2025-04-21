@@ -1,0 +1,31 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: api-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: api-container
+        image: api-script:latest
+        imagePullPolicy: Never
+        env:
+        - name: ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: api-credentials
+              key: access-key-id
+        - name: SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: api-credentials
+              key: secret-access-key
+        volumeMounts:
+        - name: api-data
+          mountPath: /data
+      restartPolicy: OnFailure
+      volumes:
+      - name: api-data
+        persistentVolumeClaim:
+          claimName: api-data-pvc
