@@ -1,0 +1,268 @@
+    1  # Download kubectl
+    2  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    3  # Make it executable
+    4  chmod +x kubectl
+    5  # Move it to the proper directory
+    6  sudo mv kubectl /usr/local/bin/
+    7  # Verify installation
+    8  kubectl version --client
+    9  # Download kind
+   10  curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
+   11  # Make it executable
+   12  chmod +x ./kind
+   13* 
+   14  sudo mv ./kind /usr/local/bin/
+   15  # Verify installation
+   16  kind version
+   17  mkdir -p api-escape-room-project
+   18  cd api-escape-room-project/
+   19  ls
+   20  vim api_script.py
+   21  echo "requests==2.28.2" > requirements.txt
+   22  vim Dockerfile
+   23  kind create cluster --name api-escape-room
+   24  docker build -t api-script:latest
+   25  docker build -t api-script:latest .
+   26  kind create cluster --name api-escape-room
+   27  kind load docker-image api-script:latest --name api-escape-room
+   28  kubectl apply -f api-credentials-secret.yaml
+   29  echo -n "testuser" | base64
+   30  echo -n "testpassword" | base64
+   31  vim api-credentials-secret.yaml
+   32  vim api-data-pvc.yaml
+   33  vim api-job.yaml
+   34  kubectl apply -f api-credentials-secret.yaml
+   35  kubectl apply -f api-data-pvc.yaml
+   36  kubectl apply -f api-job.yaml
+   37  kubectl get jobs
+   38  kubectl get pods
+   39  kubectl logs api-job-l79zr
+   40  ls
+   41  vim api_script.py 
+   42  > api_script.py 
+   43  vim api_script.py 
+   44  docker build -t api-script:latest .
+   45  kind load docker-image api-script:latest --name api-escape-room
+   46  kubectl delete job api-job
+   47  kubectl apply -f api-job.yaml
+   48  kubectl get jobs
+   49  kubectl get pods
+   50  kubectl logs api-job-6r2wl
+   51  vim api_script.py 
+   52  > api_script.py 
+   53  vim api_script.py 
+   54  docker ps
+   55  docker build -t api-script:latest .
+   56  kind load docker-image api-script:latest --name api-escape-room
+   57  docker ps
+   58  kubectl delete job api-job
+   59  kubectl apply -f api-job.yaml
+   60  kubectl get pods
+   61  kubectl describe pod api-job-5nfcj
+   62  kubectl logs api-job-5nfcj
+   63  mkdir -p output
+   64  docker run --rm   -e ACCESS_KEY_ID=testuser   -e SECRET_ACCESS_KEY=testpassword   -v $(pwd)/output:/data   api-script:latest
+   65  docker ps
+   66  vim test_api.py
+   67  chmod +x test_api.py
+   68  pip install requests
+   69  ./test_api.py
+   70  sudo yum install -y python3-pip
+   71  pip3 --version
+   72  sudo yum install -y python3-pip
+   73  pip3 --version
+   74  vim test_api.py 
+   75  > test_api.py 
+   76  vim test_api.py 
+   77  chmod +x test_api.py
+   78  python3 test_api.py
+   79  sudo yum install -y python3-pip
+   80  pip3 install requests
+   81  > test_api.py 
+   82  vim test_api.py 
+   83  vim TestDockerfile
+   84  docker build -t api-test -f TestDockerfile .
+   85  docker run --rm -v $(pwd)/output:/data api-test
+   86  > TestDockerfile
+   87  vim TestDockerfile
+   88  vim api_script.py
+   89   > api_script.py
+   90  vim api_script.py
+   91  docker build -t api-script:latest .
+   92  docker run --rm   -e ACCESS_KEY_ID=testuser   -e SECRET_ACCESS_KEY=testpassword   -v $(pwd)/output:/data   api-script:latest
+   93  docker ps
+   94  ec2-user@ip-10-192-10-231 api-escape-room-project]$ docker ps
+   95  CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS          PORTS            
+   96             NAMES
+   97  62462efe9ea9   kindest/node:v1.27.3   "/usr/local/bin/entr…"   40 minutes ago   Up 40 minutes   127.0.0.1:43845->6443/tcp   api-escape-room-control-plane
+   98  docker run --rm   -e ACCESS_KEY_ID=testuser   -e SECRET_ACCESS_KEY=testpassword   -v $(pwd)/output:/data   api-script:latest
+   99  curl --location 'https://2os8c32q80.execute-api.us-east-1.amazonaws.com/prod/login' \
+  100  mkdir -p output
+  101  cat > output/compliance_data.csv << 'EOF'
+id,resource,status,lastChecked,score
+1,"Database encryption",COMPLIANT,"2025-04-20T10:15:30Z",95
+2,"Password policies",COMPLIANT,"2025-04-20T10:15:32Z",100
+3,"Access controls",NON_COMPLIANT,"2025-04-20T10:15:35Z",65
+4,"Backup procedures",WARNING,"2025-04-20T10:15:38Z",80
+5,"Network security",COMPLIANT,"2025-04-20T10:15:40Z",90
+EOF
+
+  102  vim api-job.yaml
+  103  > api-job.yaml
+  104  vim api-job.yaml
+  105  kubectl delete job api-job
+  106  kubectl apply -f api-job.yaml
+  107  kubectl get jobs
+  108  kubectl get pods
+  109  kubectl describe pod api-job-drhrl
+  110  kubectl create configmap compliance-data --from-file=compliance_data.csv=output/compliance_data.csv
+  111  > api-job.yaml
+  112  vim api-job.yaml
+  113  kubectl delete job api-job
+  114  kubectl apply -f api-job.yaml
+  115  kubectl get jobs
+  116  kubectl get pods
+  117  kubectl logs api-job-4bw9v
+  118  kubectl get pods
+  119  ls
+  120  kubectl get jobs
+  121  kubectl get pods
+  122  kubectl logs api-job-4bw9v
+  123  pwd
+  124  vim README.md
+  125  cat README.md
+  126  cat > README.md << 'EOF'
+
+| Requirement | What I Did | Files/Scripts Created | Commands Used | Issues Encountered | Solutions |
+|-------------|-------------|------------------------|--------------|---------------------|-----------|
+| 1. Write code that makes two sequential API calls | Created a Python script that makes a login request followed by a compliance request | `api_script.py` | `vim api_script.py` | The login payload format was incorrect (API returning 400 Bad Request) | Fixed the payload to use "username"/"password" fields instead of "AccessKeyId"/"SecretAccessKey" |
+| 2. Create an image/container to run the script | Built a Docker image containing the API script | `Dockerfile`, `requirements.txt` | `vim Dockerfile`<br>`vim requirements.txt`<br>`docker build -t api-script:latest .` | Missing dockerfile parameter (build command error) | Added the "." at the end of the build command to specify build context |
+| 3. Spin up a Kubernetes cluster locally | Created a Kubernetes cluster using kind | N/A (used CLI commands) | `curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64`<br>`chmod +x ./kind`<br>`sudo mv ./kind /usr/local/bin/`<br>`kind create cluster --name api-escape-room` | None | N/A |
+| 4. Deploy the solution in Kubernetes | Successfully deployed a pod that runs and outputs CSV data | `api-credentials-secret.yaml`, `api-data-pvc.yaml`, `api-job.yaml`, `output/compliance_data.csv` | `vim api-credentials-secret.yaml`<br>`vim api-data-pvc.yaml`<br>`vim api-job.yaml`<br>`mkdir -p output`<br>`kubectl apply -f api-credentials-secret.yaml`<br>`kubectl create configmap compliance-data --from-file=compliance_data.csv=output/compliance_data.csv`<br>`kubectl apply -f api-job.yaml` | 1. 403 Forbidden errors from the compliance endpoint<br>2. Missing kubernetes manifest files<br>3. hostPath volume mounting issue | 1. Created mock data to demonstrate functionality<br>2. Created the missing yaml files<br>3. Used ConfigMap instead of hostPath for the data |
+| 5. Be able to explain the value of the compliance data | Prepared explanations about the value of compliance monitoring | `README.md` | `vim README.md` | None | N/A |
+
+
+| Step | Commands | Issues | Solutions |
+|------|----------|--------|-----------|
+| Create API Script | `vim api_script.py` | 400 Bad Request error with incorrect payload format | Updated payload to use "username"/"password" |
+| Build Docker Image | `vim requirements.txt`<br>`vim Dockerfile`<br>`docker build -t api-script:latest .` | Build command failed without context | Added "." to specify build context |
+| Set Up Kubernetes | `curl -Lo ./kind https://...`<br>`chmod +x ./kind`<br>`sudo mv ./kind /usr/local/bin/`<br>`kind create cluster --name api-escape-room` | Cluster already existed error | Used existing cluster |
+| Create K8s Manifests | `echo -n "testuser" \| base64`<br>`vim api-credentials-secret.yaml`<br>`vim api-data-pvc.yaml`<br>`vim api-job.yaml` | Non-existent files error | Created all needed manifest files |
+| Deploy to Kubernetes | `kubectl apply -f api-credentials-secret.yaml`<br>`kubectl apply -f api-data-pvc.yaml`<br>`kubectl apply -f api-job.yaml` | 1. Pod stuck in "ContainerCreating"<br>2. FailedMount error with hostPath | 1. Created ConfigMap for data<br>2. Updated job to use ConfigMap |
+| Test and Debug | `docker run --rm -e ACCESS_KEY_ID=testuser...`<br>`kubectl get pods`<br>`kubectl describe pod api-job-drhrl` | 403 Forbidden from compliance API | Created mock data and simplified pod |
+| Monitor Solution | `kubectl logs api-job-4bw9v` | Initial pod errors | Updated to simpler container showing mock data |
+| Document Solution | `vim README.md` | None | N/A |
+
+
+The compliance data provides crucial insights for:
+
+1. **Risk Identification**: The data shows that "Access controls" are NON_COMPLIANT with a low score of 65, indicating a security risk that needs immediate attention.
+
+2. **Prioritization**: The scoring system (65-100) helps organizations prioritize which issues to address first. In this case, "Access controls" would be the top priority.
+
+3. **Compliance Status Tracking**: Three items are COMPLIANT, one is NON_COMPLIANT, and one has a WARNING status, giving a clear overview of the organization's compliance posture.
+
+4. **Audit Trail**: Each check includes a timestamp ("lastChecked"), creating an audit trail for when compliance was last verified.
+
+5. **Performance Measurement**: The high scores for "Database encryption" (95) and "Password policies" (100) demonstrate areas of strong compliance that can serve as models for other areas.
+
+Despite API connectivity challenges, I successfully demonstrated the full workflow and Kubernetes deployment, showing the ability to adapt and problem-solve. The mock data allowed me to showcase the Kubernetes functionality while explaining the business value of compliance data.
+EOF
+
+  127  ls
+  128  ls -la README.md 
+  129  cat README.md 
+  130  kubectl logs api-job-4bw9v
+  131  ls
+  132  vim api_script.py 
+  133  > api_script.py 
+  134  vim api_script.py 
+  135  docker build -t api-script:latest .
+  136  kind load docker-image api-script:latest --name api-escape-room
+  137  kubectl delete job api-job
+  138  kubectl apply -f api-job.yaml
+  139  kubectl get jobs
+  140  kubectl get pods
+  141  kubectl logs api-job-fkwh9
+  142  > api_script.py 
+  143  vim api_script.py 
+  144  ls
+  145  vim requirements.txt 
+  146  cat requirements.txt 
+  147  docker build -t api-script:latest .
+  148  kind load docker-image api-script:latest --name api-escape-room
+  149  ls
+  150  vim api-job.yaml
+  151  > api-job.yaml
+  152  vim api-job.yaml
+  153  kubectl delete job api-job
+  154  kubectl apply -f api-job.yaml
+  155  kubectl get pods
+  156  mkdir -p output
+  157  kubectl cp api-job-s86pm:/data/compliance_data.csv ./output/compliance_data.csv
+  158  [ec2-user@ip-10-192-10-231 api-escape-room-project]$ mkdir -p output
+  159  [ec2-user@ip-10-192-10-231 api-escape-room-project]$ kubectl cp api-job-s86pm:/data/compliance_data.csv ./output/compliance_data.csv
+  160  error: cannot exec into a container in a completed pod; current phase is Succeeded
+  161  [ec2-user@ip-10-192-10-231 api-escape-room-project]$ kubectl logs api-job-s86pm
+  162  kubectl logs api-job-s86pm
+  163  cat <<EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: data-access-pod
+spec:
+  containers:
+  - name: data-access
+    image: busybox
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: data-volume
+      mountPath: /data
+  volumes:
+  - name: data-volume
+    persistentVolumeClaim:
+      claimName: api-data-pvc
+EOF
+
+  164  kubectl get pods data-access-pod
+  165  kubectl cp data-access-pod:/data/compliance_data.csv ./output/compliance_data.csv
+  166  cat ./output/compliance_data.csv
+  167  kubectl get pods
+  168  history
+  169  ls -la ~/.ssh
+  170  type -p curl >/dev/null || sudo apt install curl -y
+  171  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg |     sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  172  echo "deb [arch=$(dpkg --print-architecture) \
+    signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
+    https://cli.github.com/packages stable main" |     sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+  173  type -p curl >/dev/null || sudo apt install curl -y
+  174  curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  175  [ec2-user@ip-10-192-10-231 api-escape-room-project]$ type -p curl >/dev/null || sudo apt install curl -y
+  176  [ec2-user@ip-10-192-10-231 api-escape-room-project]$ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+  177  dd: failed to open ‘/usr/share/keyrings/githubcli-archive-keyring.gpg’: No such file or directory
+  178  sudo yum install -y yum-utils
+  179  sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+  180  sudo yum install -y gh
+  181  gh auth login
+  182  gh repo create api-escape-room-project --public
+  183  gh repo clone la-belle-femme/api-escape-room-project
+  184  cp -r * ../api-escape-room-project/
+  185  cd ../api-escape-room-project
+  186  git add .
+  187  git commit -m "Initial commit: API and Kubernetes integration project"
+  188  git push
+  189  git init
+  190  git add .
+  191  git commit -m "Initial commit: API and Kubernetes integration project"
+  192  ls -la
+  193  rm -rf .git
+  194  git init
+  195  git add api_script.py Dockerfile requirements.txt api-job.yaml api-credentials-secret.yaml api-data-pvc.yaml README.md output/compliance_data.csv
+  196  git commit -m "Initial commit: API and Kubernetes integration project"
+  197  git remote add origin https://github.com/YOUR_USERNAME/api-escape-room-project.git
+  198  git branch -M main
+  199  git push -u origin main
+  200  git remote set-url origin https://github.com/la-belle-femme/api-escape-room-project.git
+  201  git push -u origin main
+  202  history
+  203  history > command_history.txt
